@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>DicePoker - first to 1000000 gets a present! </title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" type="text/css" href="indexStyle.css" />
+    </head>
+
+
+
+
+    <body>
+        
+        <header >
+            <img src="dicePoker.jpg" alt="dicePokerLogo">
+        </header>
+
+        <section class="grid-container">
+
+            <div class="app">
+
+                <dice></dice>
+
+
+
+
+
+
+
+
+            </div>
+
+        </section>
+
+
+
+
+        <footer><hr>
+
+        </footer>
+
+
+        <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+        <script>    Vue.component('dice', {
+            props: ['diceProps'],
+            template: `
+        <div class="diceDiv">
+            <img src="{{diceProps.sideUrl}}" class="diceImg"></a>
+            <button v-on:click="SPARA-TILL-ARRAY"> Save Dice </button>
+        </div>
+        `
+        })
+        </script>
+
+     
+     <script>
+       
+            var app = new Vue({
+                el: '#app',
+                data: {                
+                    diceProps: [
+                    {id: 1, value:"1", sideUrl: "ace.jpg"},
+                    {id: 2, value:"2", sideUrl: "jack.jpg"},
+                    {id: 3, value:"3", sideUrl: "king.jpg"},
+                    {id: 4, value:"4", sideUrl: "nine.jpg"},
+                    {id: 5, value:"5", sideUrl: "ten.jpg"},
+                    {id: 6, value:"6", sideUrl: "queen.jpg"},
+                ],
+                playerPoints: 0,
+                dataPoints: 0,
+                playerMoney: 100,
+                playerBet: 0
+
+
+                
+            },
+            methods: {
+                runGame(){
+                    
+                },
+                rollDice(){
+
+                },
+                gameAi(){
+
+                }
+
+            }
+            
+            })
+            /*
+        https://vuejs.org/v2/guide/components.html#Listening-to-Child-Components-Events
+        */
+        </script>
+
+
+    </body>
+</html>
