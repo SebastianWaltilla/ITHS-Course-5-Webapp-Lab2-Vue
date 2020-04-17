@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Vue - Props</title>
+    <link rel="stylesheet" type="text/css" href="indexStyle.css" />
+</head>
+<body>
+<div id="app">
+
+    <img  :src="{{ ge }}" class="diceImg">
+
+    <blog-post
+            v-for="post in posts"
+            v-bind:key="post.id"
+            v-bind:title="post.title"
+            v-bind:img="post.img"
+    ></blog-post>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script>
+    Vue.component('blog-post', {
+        props: ['title', 'img'],
+        template:
+        
+        `<div class="singleDice">
+                <img v-bind:src="img" class="diceImg"/>
+                <button v-on:click="saveDice()"> Save Dice </button>
+        </div>`})
+        
+        var app = new Vue({       
+            el: '#app',
+            data: {  
+                computerBet: 10,
+                rollCount: 1234,
+                ge: "dice/ten.jpg"
+                },
+            methods: {
+                runGame(){
+                    
+                },
+             
+                rollDice(){
+
+                },
+                gameAi(){
+
+                },
+                playerBet5(){
+
+                },
+                playerBet10(){
+
+                },
+                playerBet50(){
+
+                }
+            }
+    
+    })
+    /*
+https://vuejs.org/v2/guide/components-props.html
+   */
+</script>
+</body>
+</html>
