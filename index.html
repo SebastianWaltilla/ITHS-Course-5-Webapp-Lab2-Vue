@@ -11,13 +11,19 @@
 
 <body>
 
+    <div class="grid-container">
+
+<header>
+    <img src="pokerdice.png" alt="dicePokerLogo" class="pokerDiceLogo">
+
+</header>
+</div>
+
+
     
 <div class="grid-container">
 
-    <header class="header-container">
-        <img src="pokerdice.png" alt="dicePokerLogo" class="pokerDiceLogo">
-    
-    </header>
+   
     
 
     <div id="app" class="vueAppWidth"><!-- vue app---------------------------------------->
@@ -30,8 +36,7 @@
             </ul>
             <ul><li class="menuBoxes"> Player Money {{ playerMoney }} </li></ul>
             <ul>
-  
-                <li class="menuBoxes"> Player bet {{ playerBet }} </li>
+                  <li class="menuBoxes"> Player bet {{ playerBet }} </li>
                 <li class="menuBoxes"> Computer bet {{ computerBet }} </li>
             </ul>
         </section>
@@ -135,29 +140,33 @@
 
     </div>
     
-    <div class="rules">
-        <h2> Rules: </h2>
-        <ul>
-            <li class="rules">Objective: Get the highest amount of cash after 5 rounds.</li>
-            <li class="rules">1. You have 5 rounds to crush the computer and earn more cash.</li>
-            <li class="rules">2. You roll 3 times, bet between each of them you can bet if you thing your hand is better than computers. </li>
-            <li class="rules">3. If your hand has higher value then the computer, you win. If same com win.</li>
-            <li class="rules">4. Hand values:</li>
-            <li class="rules">Five of a kind  = 7000 + higest card value</li>
-            <li class="rules">four of a kind  = 6000 + higest card value</li>
-            <li class="rules">Full house      = 5000 + higest card value</li>
-            <li class="rules">straight        = 4000 + higest card value</li>
-            <li class="rules">three of a kind = 3000 + higest card value</li>
-            <li class="rules">two pair        = 2000 + higest card value</li>
-            <li class="rules">pair            = 1000 + higest card value</li>
-
-        </ul>
-
-    </div>
+  
 
 
 
+    <div class="grid-container">
 
+        <div class="rules">
+            <h2> Rules: </h2>
+            <ul>
+                <li class="rules">Objective: Get the highest amount of cash after 5 rounds.</li>
+                <li class="rules">1. You have 5 rounds to crush the computer and earn more cash.</li>
+                <li class="rules">2. You roll 3 times, bet between each of them you can bet if you thing your hand is better than computers. </li>
+                <li class="rules">3. If your hand has higher value then the computer, you win. If same com win.</li>
+                <li class="rules">4. Hand values:</li>
+                <li class="rules">Five of a kind  = 7000 + higest card value</li>
+                <li class="rules">four of a kind  = 6000 + higest card value</li>
+                <li class="rules">Full house      = 5000 + higest card value</li>
+                <li class="rules">straight        = 4000 + higest card value</li>
+                <li class="rules">three of a kind = 3000 + higest card value</li>
+                <li class="rules">two pair        = 2000 + higest card value</li>
+                <li class="rules">pair            = 1000 + higest card value</li>
+    
+            </ul>
+    
+        </div>
+        </div>
+        
 
 
 
