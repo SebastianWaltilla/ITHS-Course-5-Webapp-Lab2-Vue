@@ -8,188 +8,325 @@
 </head>
 
 
+
 <body>
+
     
-   
+<div class="grid-container">
 
-    <img src="dicePg" alt="dicePokerLogo">
+    <header class="header-container">
+        <img src="pokerdice.png" alt="dicePokerLogo" class="pokerDiceLogo">
+    
+    </header>
+    
 
-    <div id="app"><!-- vue app---------------------------------------->
+    <div id="app" class="vueAppWidth"><!-- vue app---------------------------------------->
      
-     
-        <div class = playerDiceContainer>
+        <section>
+            <h2> GAME MESSAGES</h2>
+            <ul>
+                <li class="menuBoxes"> Rolled {{ diceRollCounter }} / 3 times </li>
+                <li class="menuBoxes"> Played {{ gameCount }} / 5 games </li>
+            </ul>
+            <ul><li class="menuBoxes"> Player Money {{ playerMoney }} </li></ul>
+            <ul>
+  
+                <li class="menuBoxes"> Player bet {{ playerBet }} </li>
+                <li class="menuBoxes"> Computer bet {{ computerBet }} </li>
+            </ul>
+        </section>
 
+       <section>
+        <h2> COMPUTER DICES  </h2>
+            <div>
+                <ul>
+                    <blog-post
+                    v-for="post in posts"
+                    v-bind:key="post.id"
+                    v-bind:title="post.title"
+                    v-bind:img="post.img"
+                    ></blog-post>
+                </ul>
+            </div>
+       </section>
 
-            <div class="dicesForPlayer">
-            
-                    <div >
+       <section>
 
-                        <ul>
-                         
-                        </ul>
-                        <p v-if="pdb1">
-                            <img v-bind:src="aDiceImg0" alt="hej" class=diceImg>
-                            <button v-on:click="saveDice(1)"> Save Dice1 </button>
-                        </p>
-    
-                        <p v-if="pdb2">
-                            <img v-bind:src="aDiceImg1" alt="hej" class=diceImg>
-                            <button v-on:click="saveDice(2)"> Save Dice2 </button>
-                        </p>
-    
-                        <p v-if="pdb3">
-                            <img v-bind:src="aDiceImg2" alt="hej" class=diceImg>
-                            <button v-on:click="saveDice(3)"> Save Dice3 </button>
-                        </p>
-    
-                        <p v-if="pdb4">
-                            <img v-bind:src="aDiceImg3" alt="hej" class=diceImg>
-                            <button v-on:click="saveDice(4)"> Save Dice4 </button>
-                        </p>
-    
-                        <p v-if="pdb5">
-                            <img v-bind:src="aDiceImg4" alt="hej" class=diceImg>     
-                            <button v-on:click="saveDice(5)"> Save Dice5 </button>
-                        </p>
-                    </div>
-                                  
-                    <p>Efter boolean är satt till false</p>
+        <h2>Game messages:    </h2>
+        <p>{{ playerRolledValue }}</p>
+        <button v-on:click="changeComDice()"> change com dice </button>
 
-                    <div> 
-                            <p v-if="!pdb1">
-                                <img v-bind:src="aDiceImg0" alt="hej" class=diceImg>
-                                <button v-on:click="returnDice(1)"> Save Dice1 </button>
-                            </p>
-        
-                            <p v-if="!pdb2">
-                                <img v-bind:src="aDiceImg1" alt="hej" class=diceImg>
-                                <button v-on:click="returnDice(2)"> Save Dice2 </button>
-                            </p>
-        
-                            <p v-if="!pdb3">
-                                <img v-bind:src="aDiceImg2" alt="hej" class=diceImg>
-                                <button v-on:click="returnDice(3)"> Save Dice3 </button>
-                            </p>
-        
-                            <p v-if="!pdb4">
-                                <img v-bind:src="aDiceImg3" alt="hej" class=diceImg>
-                                <button v-on:click="returnDice(4)"> Save Dice4 </button>
-                            </p>
-        
-                            <p v-if="!pdb5">
-                                <img v-bind:src="aDiceImg4" alt="hej" class=diceImg>     
-                                <button v-on:click="returnDice(5)"> Save Dice5 </button>
-                            </p>  
-                    </div>
-                    <button v-on:click="rollDice()"> roll unsaved dices </button>
-                    <button v-on:click="stay()"> stay </button>
+       </section>
 
-             </p>
-                              
-              
-             <h1>retult: {{ playerRolledValue }}   </h1>
-
+        <section>
+            <div>
+                <h2>   PLAYER DICES     </h2>
+                    
+                <ul>
+                    <li v-if="pdb1"> 
+                        <button v-on:click="saveDice(1)" class="diceButtonClass"> <img v-bind:src="aDiceImg0" alt="hej" class=diceImg> </button>
+                    </li>
+                    <li v-if="pdb2">
+                        <button v-on:click="saveDice(2)" class="diceButtonClass"> <img v-bind:src="aDiceImg1" alt="hej" class=diceImg> </button>
+                    </li>
+                    <li v-if="pdb3">
+                        <button v-on:click="saveDice(3)" class="diceButtonClass"> <img v-bind:src="aDiceImg2" alt="hej" class=diceImg> </button>
+                    </li>
+                    <li v-if="pdb4">
+                        <button v-on:click="saveDice(4)" class="diceButtonClass"> <img v-bind:src="aDiceImg3" alt="hej" class=diceImg> </button>
+                    </li>
+                    <li v-if="pdb5">
+                        <button v-on:click="saveDice(5)" class="diceButtonClass"> <img v-bind:src="aDiceImg4" alt="hej" class=diceImg> </button>
+                    </li>
+                </ul>
+                                    
+                <ul> 
+                    <li v-if="!pdb1">
+                        <button v-on:click="returnDice(1)" class="diceButtonClass"> <img v-bind:src="aDiceImg0" alt="hej" class=diceImg> </button>
+                    </li>
+                    <li v-if="!pdb2">
+                        <button v-on:click="returnDice(2)" class="diceButtonClass"> <img v-bind:src="aDiceImg1" alt="hej" class=diceImg> </button>
+                    </li>
+                    <li v-if="!pdb3">
+                        <button v-on:click="returnDice(3)" class="diceButtonClass"> <img v-bind:src="aDiceImg2" alt="hej" class=diceImg> </button>
+                    </li>
+                    <li v-if="!pdb4">
+                        <button v-on:click="returnDice(4)" class="diceButtonClass"> <img v-bind:src="aDiceImg3" alt="hej" class=diceImg> </button>
+                    </li>
+                    <li v-if="!pdb5">
+                        <button v-on:click="returnDice(5)" class="diceButtonClass"> <img v-bind:src="aDiceImg4" alt="hej" class=diceImg> </button>
+                    </li>  
+                </ul>
             </div>
 
+            <ul>
 
-        </div>
+                <li>
+                    <button v-on:click="rollDice()"> Roll! </button>
+                </li>
+                <li>
+                    <button v-on:click="stay()"> Stay </button>
+                </li>
+                <li>
+                    <button v-on:click="nextRound()"> nextRound </button>
+                </li>
+            </ul>   
+            <ul>   
+               
+                <li>
+                    <button v-on:click="playerBetAmount(1)"> Bet 1 </button>
+                </li>
+                 <li>
+                    <button v-on:click="playerBetAmount(5)"> Bet 5 </button>
+                </li>
+                <li>
+                    <button v-on:click="playerBetAmount(10)"> Bet 10 </button>
+                </li>
+            
 
-        <header >
-           
-        </header>
-
-        <button v-on:click="rollDice()" > roll unsaved dices </button>      
-        <button v-on:click="stay()"> stay </button>
-
-        <button v-on:click="consolePrint()"> debug </button>
+            </ul>
 
 
-        
-      
-    </div><!-- App---------------------------------------------------> 
 
+
+       
+        </section>
+     
+
+    </div>
+    
+    <div class="rules">
+        <h2> Rules: </h2>
+        <ul>
+            <li class="rules">Objective: Get the highest amount of cash after 5 rounds.</li>
+            <li class="rules">1. You have 5 rounds to crush the computer and earn more cash.</li>
+            <li class="rules">2. You roll 3 times, bet between each of them you can bet if you thing your hand is better than computers. </li>
+            <li class="rules">3. If your hand has higher value then the computer, you win. If same com win.</li>
+            <li class="rules">4. Hand values:</li>
+            <li class="rules">Five of a kind  = 7000 + higest card value</li>
+            <li class="rules">four of a kind  = 6000 + higest card value</li>
+            <li class="rules">Full house      = 5000 + higest card value</li>
+            <li class="rules">straight        = 4000 + higest card value</li>
+            <li class="rules">three of a kind = 3000 + higest card value</li>
+            <li class="rules">two pair        = 2000 + higest card value</li>
+            <li class="rules">pair            = 1000 + higest card value</li>
+
+        </ul>
+
+    </div>
+
+
+
+
+
+
+
+
+</div><!-- App---------------------------------------------------> 
 
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <script>      
         //<!-- Vue APP---------------------------------------------------->
-        var app = new Vue({
+              
+        Vue.component('blog-post', {
+        props: ['title', 'img'],
+        template: '<li id="changeThis">\
+        <img  v-bind:src="img" class=diceImg >\
+        </li>'
+        })
+
+       
+        var app = new Vue({                 // Vue App ----- all logic
             el: '#app',
             data: {  
+
                 diceSides: [
-                    {id: 1, value: 14, text:"Ace", sideUrl:"dice/ace.jpg"},
-                    {id: 2, value: 13, text:"King", sideUrl:"dice/king.jpg"},
-                    {id: 3, value: 12, text:"Queen", sideUrl:"dice/queen.jpg"},
-                    {id: 4, value: 11, text:"Jack", sideUrl:"dice/jack.jpg"},
-                    {id: 5, value: 10, text:"Tenn",sideUrl:"dice/ten.jpg"},
-                    {id: 6, value: 9, text:"Nine", sideUrl:"dice/nine.jpg"}
+                    {id: 1, value: 9, text:"Nine", sideUrl:"dice/nine.jpg"},
+                    {id: 2, value: 10, text:"Tenn",sideUrl:"dice/ten.jpg"},
+                    {id: 3, value: 11, text:"Jack", sideUrl:"dice/jack.jpg"},
+                    {id: 4, value: 12, text:"Queen", sideUrl:"dice/queen.jpg"},
+                    {id: 5, value: 13, text:"King", sideUrl:"dice/king.jpg"},
+                    {id: 6, value: 14, text:"Ace", sideUrl:"dice/ace.jpg"},
+                    {id: 7, value: 0, text:"?", sideUrl:"dice/q.jpg"},
+                    {id: 8, value: 0, text:"blank", sideUrl:"dice/b.jpg"}
                 ],  
+                posts: [
+                    { id: 1, title: "1", img: 'dice/q.jpg' },
+                    { id: 2, title: "1", img: 'dice/q.jpg' },
+                    { id: 3, title: "2", img: 'dice/q.jpg' },
+                    { id: 4, title: "2", img: 'dice/q.jpg' },
+                    { id: 5, title: "4", img: 'dice/q.jpg' }
+                 ],
                 aDiceImg0: "dice/q.jpg", //To bind dice img to img tag. 
                 aDiceImg1: "dice/q.jpg",     
                 aDiceImg2: "dice/q.jpg",     
                 aDiceImg3: "dice/q.jpg",     
                 aDiceImg4: "dice/q.jpg",
-                b1DiceImg: "1", //Same but for computer.
-                b2DiceImg: "1",     
-                b3DiceImg: "1",      
-                b4DiceImg: "1",     
-                b5DiceImg: "1", 
                 resetGame: "True",          // to stop player from re roll new nices   
-                diceRollCounter: 0,         // to be able to roll 3 times max. 
                 startGameBoolean: false,       
                 pdb1: true, pdb2: true, pdb3: true, pdb4: true, pdb5: true,  //If player holds dice
-                playerDice: [4,1,1,1,1],    // array to hold players rolled dices
+                cdb1: false, cdb2: false, cdb3: true, cdb4: true, cdb5: true,  //If com holds dice
+                playerDice: [6,6,6,6,6],    // array to hold players rolled dices
                 computerDice: [1,2,3,4,5],
                 playerPoints: 0,
-                dataPoints: 0,
+                comPoints: 0,
                 playerMoney: 100,
                 playerBet: 0,
                 computerBet: 10,
-                rollCount: 1234,
-                playerRolledValue: "your value is going in here"
+                diceRollCounter: 0,         // to be able to roll 3 times max. 
+                gameCount: 0,               // to be able to play 5 rounds only.
+                playerRolledValue: "Press Roll to start the game!"
                 },
             methods: {  
-               
-               
+                nextRound(){
+
+                    this.resetSNUFF()
+                    this.gameCount++
+                    /*
+                    the net ninja
+                    if(diceRollCounter > 2){
+
+                        if(this.playerPoints > this.comPoints){
+                            this.playerMoney = this.playerMoney +this.playerPoints + this.comPoints
+                            this.playerRolledValue = "HEY You won: " + this.playerPoints + this.comPoints + "!"
+                        }
+
+                        this.resetGame()
+
+
+
+
+
+
+
+
+                    }
+                    
+                    */
+
+
+                },
+                changeComDice(){
+                    this.posts[1].img = "dice/ace.jpg"
+                    this.reloadSingleElement();
+                },
+                resetSNUFF(){
+                  
+                    this.playerDice[0] = 6
+                    this.playerDice[1] = 6
+                    this.playerDice[2] = 6
+                    this.playerDice[3] = 6
+                    this.playerDice[4] = 6
+                    this.playerDice[5] = 6
+
+                    this.setDiceImg()
+
+                    console.log(this.playerDice)
+
+                    this.pdb1 = true
+                    this.pdb2 = true 
+                    this.pdb3 = true
+                    this.pdb4 = true
+                    this.pdb5 = true
+
+                    this.playerPoints = 0
+                    this.comPoints = 0
+                    this.playerBet = 0
+                    this.computerBet = 0
+                    this.diceRollCounter = 0  
+                    this.playerRolledValue = "your value is going in here"
+                },
                 stay(){
                     this.diceRollCounter++
 
                     if(this.diceRollCounter > 2){
                         this.checkCardValue();
                     }
+                },                 
+                gameAi(){
+
                 },
-
-
-
-             
+                playerBetAmount(amount){
+                    
+                    if(this.playerMoney >= amount){
+                        this.playerMoney = this.playerMoney - amount
+                        this.playerBet = this.playerBet + amount
+                    }
+            
+                },
+                randNr(){
+                    var hej = Math.floor(Math.random() * 7); 
+                    return hej;    
+                }, 
+                reloadSingleElement(){
+                    var container = document.getElementById("changeThis");
+                    var content = container.innerHTML;
+                    container.innerHTML= content; 
+                },
                 rollDice(){
-
-
                     if(this.diceRollCounter < 3){
-
-                        if (this.pdb1){
+                        if (this.pdb1 || this.diceRollCounter == 0){
                             this.playerDice[0] = Math.floor(Math.random() * 6)
                         }
-                        if (this.pdb2){
+                        if (this.pdb2 || this.diceRollCounter == 0){
                             this.playerDice[1] = Math.floor(Math.random() * 6)
                         }
-                        if (this.pdb3){
+                        if (this.pdb3 || this.diceRollCounter == 0){
                             this.playerDice[2] = Math.floor(Math.random() * 6)
                         }
-                        if (this.pdb4){
+                        if (this.pdb4 || this.diceRollCounter == 0){
                             this.playerDice[3] = Math.floor(Math.random() * 6)
                         }
-                        if (this.pdb5){
+                        if (this.pdb5 || this.diceRollCounter == 0){
                             this.playerDice[4] = Math.floor(Math.random() * 6)
                         }
                         this.setDiceImg()
                         this.diceRollCounter++
-                    }
-                    
-                   
+                    }                   
                     if(this.diceRollCounter > 2){
                         this.checkCardValue();
-                    }
 
+                    }
                 },
                 setDiceImg(){
                         this.aDiceImg0 = this.diceSides[this.playerDice[0]].sideUrl
@@ -198,7 +335,6 @@
                         this.aDiceImg3 = this.diceSides[this.playerDice[3]].sideUrl  
                         this.aDiceImg4 = this.diceSides[this.playerDice[4]].sideUrl 
                 },           
-
                 saveDice(button){
                     switch (button){
                         case 1: this.pdb1 = false
@@ -226,18 +362,6 @@
                         case 5: this.pdb5 = true
                         break;
                     } 
-                },
-          
-                randNr(){
-                    var hej = Math.floor(Math.random() * 7); 
-                    return hej;    
-                },                   
-                gameAi(){
-
-                },
-                playerBet(amount){
-
-            
                 },
                 checkCardValue(){
                     console.log("print array: " + this.playerDice)
@@ -270,8 +394,34 @@
                         }
                        allFiveDices.push(nine1,ten1,jack1,queen1,king1,ace1) 
                     }
-
                     var i = 0;
+
+                       //--------------------------------onePair
+                    while (i < 6) {
+                        if(allFiveDices[i].length == 2){ 
+                            this.playerPoints = 1000
+                            this.playerRolledValue = "wow! You rolled pair!" + this.playerPoints
+                        }
+                        i++;                    
+                    }i = 0;
+                     //--------------------------------twoPair
+                    let sumTwo = 0
+                    while (i < 6) {        
+                        if(allFiveDices[i].length == 2 ){ 
+                            sumTwo++
+                        }                                                                        
+                        if(sumTwo == 2){
+                            this.playerPoints = 2000
+                            this.playerRolledValue = "wow! You rolled tvåpar     " + this.playerPoints
+                        }
+                        i++;                    
+                    } i = 0;        
+                
+                    if(this.playerPoints == 0){
+                        this.playerRolledValue = "wow! You rolled NOTHING     " 
+                    }
+
+                    
                     //--------------------------------fiveOfAkind
                     while (i < 6) {
                         if( allFiveDices[i].length == 5){ 
@@ -287,6 +437,14 @@
                             console.log("four!")
                             this.playerPoints = 6000
                             this.playerRolledValue = "wow! You rolled four of a kind!" + this.playerPoints
+                        }
+                        i++;                    
+                    }i = 0;
+                          //--------------------------------threOfAKind
+                          while (i < 6) {
+                        if(allFiveDices[i].length == 3){ 
+                            this.playerPoints = 3000
+                            this.playerRolledValue = "wow! You rolled three of a kind!" + this.playerPoints
                         }
                         i++;                    
                     }i = 0;
@@ -328,50 +486,19 @@
                         }
                         i++;                    
                     }i = 0;
-                    //--------------------------------threOfAKind
-                    while (i < 6) {
-                        if(allFiveDices[i].length == 3){ 
-                            this.playerPoints = 3000
-                            this.playerRolledValue = "wow! You rolled three of a kind!" + this.playerPoints
-                        }
-                        i++;                    
-                    }i = 0;
-                     //--------------------------------twoPair
-                    let sumTwo = 0
-                    while (i < 6) {        
-                        if(allFiveDices[i].length == 2 ){ 
-                            sumTwo++
-                        }                                                                        
-                        if(sumTwo == 2){
-                            this.playerPoints = 2000
-                            this.playerRolledValue = "wow! You rolled tvåpar     " + this.playerPoints
-                        }
-                        i++;                    
-                    } i = 0;        
+
                 
                     if(this.playerPoints == 0){
                         this.playerRolledValue = "wow! You rolled NOTHING     " 
                     }
-                    //--------------------------------onePair
-                    while (i < 6) {
-                        if(allFiveDices[i].length == 2){ 
-                            this.playerPoints = 1000
-                            this.playerRolledValue = "wow! You rolled pair!" + this.playerPoints
-                        }
-                        i++;                    
-                    }i = 0;
-
-                          
-                   
 
                 }
             }
     })
         
-    </script>
+</script>
 
-<footer><hr>
-</footer>
+
 
 </body>
 </html>
