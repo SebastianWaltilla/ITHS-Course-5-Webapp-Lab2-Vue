@@ -7,32 +7,23 @@
     <link rel="stylesheet" type="text/css" href="indexStyle.css" />
 </head>
 
-
-
 <body>
 
     <div class="grid-container">
-
-<header>
-    <img src="pokerdice.png" alt="dicePokerLogo" class="pokerDiceLogo">
-
-</header>
-</div>
-
-
+        <header>
+            <img src="pokerdice.png" alt="dicePokerLogo" class="pokerDiceLogo">
+        </header>
+    </div>
     
-<div class="grid-container">
+    <div class="grid-container" id="resetPokerApp">
 
-   
-    
-
-    <div id="app" class="vueAppWidth"><!-- vue app---------------------------------------->
+    <div id="app" class="vueAppWidth"><!-- vue app------>
      
         <section>
-            <h2> GAME MESSAGES</h2>
+            <p> GAME MESSAGES</p>
             <ul>
-                <li class="menuBoxes"> Rolled {{ diceRollCounter }} / 3 times </li>
-                <li class="menuBoxes"> Played {{ gameCount }} / 5 games </li>
+                <li class="menuBoxes"> Rolled {{ diceRollCounter }} / 3 </li>
+                <li class="menuBoxes"> Turn {{ gameCount }} / 5  </li>
             </ul>
             <ul><li class="menuBoxes"> Player Money {{ playerMoney }} </li></ul>
             <ul>
@@ -42,7 +33,7 @@
         </section>
 
        <section>
-        <h2> COMPUTER DICES  </h2>
+        <p> Computers saved dices  </p>
             <div>
                 <ul>
                     <blog-post
@@ -55,18 +46,13 @@
             </div>
        </section>
 
-       <section>
-
-        <h2>Game messages:    </h2>
-        <p>{{ playerRolledValue }}</p>
-        <button v-on:click="changeComDice()"> change com dice </button>
-
+       <section><!-- Message between rolls------>
+            <p>{{ playerRolledValue }}</p>
        </section>
 
         <section>
             <div>
-                <h2>   PLAYER DICES     </h2>
-                    
+                <p>   PLAYER DICES     </p>   
                 <ul>
                     <li v-if="pdb1"> 
                         <button v-on:click="saveDice(1)" class="diceButtonClass"> <img v-bind:src="aDiceImg0" alt="hej" class=diceImg> </button>
@@ -109,15 +95,12 @@
                 <li>
                     <button v-on:click="rollDice()"> Roll! </button>
                 </li>
-                <li>
-                    <button v-on:click="stay()"> Stay </button>
-                </li>
+            
                 <li>
                     <button v-on:click="nextRound()"> nextRound </button>
                 </li>
             </ul>   
             <ul>   
-               
                 <li>
                     <button v-on:click="playerBetAmount(1)"> Bet 1 </button>
                 </li>
@@ -127,51 +110,40 @@
                 <li>
                     <button v-on:click="playerBetAmount(10)"> Bet 10 </button>
                 </li>
+            </ul>
+
+            <button v-if="resetGame" v-on:click="resetGameMethod(resetPokerApp)"> resetgame(does not work, press f5) </button>
             
-
-            </ul>
-
-
-
-
-       
+         
         </section>
-     
+      
+    </div> <!-- vue app end------>
 
+    <div class="vueAppWidth1fr">
+      
+        <section>
+           <h2> Rules: </h2>
+           <p>Objective: Get the highest amount of cash after 5 rounds.</p>
+           <p>1. You have 5 rounds to crush the computer and earn more cash.</p>
+           <p>2. You roll 3 times, bet between each of them you can bet if you thing your hand is better than computers.</p>
+           <p>3. If your hand has higher value then the computer, you win. If same com win.</p>
+           <p>4. Hand values:</p>
+           <p>Five of a kind  = 7000 + higest card value</p>
+           <p>four of a kind  = 6000 + higest card value</p>
+           <p>Full house      = 5000 + higest card value</p>
+           <p>straight        = 4000 + higest card value</p>
+           <p>three of a kind = 3000 + higest card value</p>
+           <p>two pair        = 2000 + higest card value</p>
+           <p>pair            = 1000 + higest card value</p>
+        /section>
+
+        <section>
+            <h2> Top Score: </h2>
+        </section>
+   
     </div>
-    
-  
 
-
-
-    <div class="grid-container">
-
-        <div class="rules">
-            <h2> Rules: </h2>
-            <ul>
-                <li class="rules">Objective: Get the highest amount of cash after 5 rounds.</li>
-                <li class="rules">1. You have 5 rounds to crush the computer and earn more cash.</li>
-                <li class="rules">2. You roll 3 times, bet between each of them you can bet if you thing your hand is better than computers. </li>
-                <li class="rules">3. If your hand has higher value then the computer, you win. If same com win.</li>
-                <li class="rules">4. Hand values:</li>
-                <li class="rules">Five of a kind  = 7000 + higest card value</li>
-                <li class="rules">four of a kind  = 6000 + higest card value</li>
-                <li class="rules">Full house      = 5000 + higest card value</li>
-                <li class="rules">straight        = 4000 + higest card value</li>
-                <li class="rules">three of a kind = 3000 + higest card value</li>
-                <li class="rules">two pair        = 2000 + higest card value</li>
-                <li class="rules">pair            = 1000 + higest card value</li>
-    
-            </ul>
-    
-        </div>
-        </div>
-        
-
-
-
-
-</div><!-- App---------------------------------------------------> 
+</div><!-- Grid container end -----------------------> 
 
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <script>      
@@ -185,7 +157,7 @@
         })
 
        
-        var app = new Vue({                 // Vue App ----- all logic
+        var app = new Vue({                                                  // Vue App ----- all logic
             el: '#app',
             data: {  
 
@@ -200,119 +172,37 @@
                     {id: 8, value: 0, text:"blank", sideUrl:"dice/b.jpg"}
                 ],  
                 posts: [
-                    { id: 1, title: "1", img: 'dice/q.jpg' },
-                    { id: 2, title: "1", img: 'dice/q.jpg' },
-                    { id: 3, title: "2", img: 'dice/q.jpg' },
-                    { id: 4, title: "2", img: 'dice/q.jpg' },
-                    { id: 5, title: "4", img: 'dice/q.jpg' }
+                    { id: 1, title: "1", img: 'dice/b.jpg' },
+                    { id: 2, title: "1", img: 'dice/b.jpg' },
+                    { id: 3, title: "2", img: 'dice/b.jpg' },
+                    { id: 4, title: "2", img: 'dice/b.jpg' },
+                    { id: 5, title: "4", img: 'dice/b.jpg' }
                  ],
-                aDiceImg0: "dice/q.jpg", //To bind dice img to img tag. 
+                aDiceImg0: "dice/q.jpg",                                       //To bind dice img to img tag. 
                 aDiceImg1: "dice/q.jpg",     
                 aDiceImg2: "dice/q.jpg",     
                 aDiceImg3: "dice/q.jpg",     
                 aDiceImg4: "dice/q.jpg",
-                resetGame: "True",          // to stop player from re roll new nices   
+                resetGame: false,                                              // to stop player from re roll new nices   
                 startGameBoolean: false,       
-                pdb1: true, pdb2: true, pdb3: true, pdb4: true, pdb5: true,  //If player holds dice
+                pdb1: true, pdb2: true, pdb3: true, pdb4: true, pdb5: true,    //If player holds dice
                 cdb1: false, cdb2: false, cdb3: true, cdb4: true, cdb5: true,  //If com holds dice
-                playerDice: [6,6,6,6,6],    // array to hold players rolled dices
-                computerDice: [1,2,3,4,5],
+                playerDice: [6,6,6,6,6],                                       // array to hold players rolled dices
+                computerDice: [5,2,3,4,5],  
+                comhandId: 99999,
                 playerPoints: 0,
                 comPoints: 0,
                 playerMoney: 100,
                 playerBet: 0,
                 computerBet: 10,
-                diceRollCounter: 0,         // to be able to roll 3 times max. 
-                gameCount: 0,               // to be able to play 5 rounds only.
-                playerRolledValue: "Press Roll to start the game!"
+                diceRollCounter: 0,                                            // to be able to roll 3 times max. 
+                gameCount: 1,                                                  // to be able to play 5 rounds only.
+                playerRolledValue: "Press Roll to start the game!",
+                comHandText: "some hand:"
                 },
             methods: {  
-                nextRound(){
-
-                    this.resetSNUFF()
-                    this.gameCount++
-                    /*
-                    the net ninja
-                    if(diceRollCounter > 2){
-
-                        if(this.playerPoints > this.comPoints){
-                            this.playerMoney = this.playerMoney +this.playerPoints + this.comPoints
-                            this.playerRolledValue = "HEY You won: " + this.playerPoints + this.comPoints + "!"
-                        }
-
-                        this.resetGame()
-
-
-
-
-
-
-
-
-                    }
-                    
-                    */
-
-
-                },
-                changeComDice(){
-                    this.posts[1].img = "dice/ace.jpg"
-                    this.reloadSingleElement();
-                },
-                resetSNUFF(){
-                  
-                    this.playerDice[0] = 6
-                    this.playerDice[1] = 6
-                    this.playerDice[2] = 6
-                    this.playerDice[3] = 6
-                    this.playerDice[4] = 6
-                    this.playerDice[5] = 6
-
-                    this.setDiceImg()
-
-                    console.log(this.playerDice)
-
-                    this.pdb1 = true
-                    this.pdb2 = true 
-                    this.pdb3 = true
-                    this.pdb4 = true
-                    this.pdb5 = true
-
-                    this.playerPoints = 0
-                    this.comPoints = 0
-                    this.playerBet = 0
-                    this.computerBet = 0
-                    this.diceRollCounter = 0  
-                    this.playerRolledValue = "your value is going in here"
-                },
-                stay(){
-                    this.diceRollCounter++
-
-                    if(this.diceRollCounter > 2){
-                        this.checkCardValue();
-                    }
-                },                 
-                gameAi(){
-
-                },
-                playerBetAmount(amount){
-                    
-                    if(this.playerMoney >= amount){
-                        this.playerMoney = this.playerMoney - amount
-                        this.playerBet = this.playerBet + amount
-                    }
-            
-                },
-                randNr(){
-                    var hej = Math.floor(Math.random() * 7); 
-                    return hej;    
-                }, 
-                reloadSingleElement(){
-                    var container = document.getElementById("changeThis");
-                    var content = container.innerHTML;
-                    container.innerHTML= content; 
-                },
                 rollDice(){
+                    
                     if(this.diceRollCounter < 3){
                         if (this.pdb1 || this.diceRollCounter == 0){
                             this.playerDice[0] = Math.floor(Math.random() * 6)
@@ -331,12 +221,147 @@
                         }
                         this.setDiceImg()
                         this.diceRollCounter++
-                    }                   
+                    }
+
+                  
                     if(this.diceRollCounter > 2){
                         this.checkCardValue();
+                        
+                        if (this.playerMoney == 0) {
+                            this.playerRolledValue = "hey! good game, but the com defeted you. Press resetGame button to try again"
+                            this.resetGame = true
+                        }  
+                        if(this.diceRollCounter == 3){
+                            if(this.playerPoints > this.comPoints){
+                                this.playerMoney = this.playerBet + this.computerBet
+                            } else {
+                                this.playerMoney = this.playerMoney - this.playerBet + this.computerBet
+                            }
+                        }
+                        if (this.gameCount == 5 && this.playerMoney > 0){
+                            this.playerRolledValue = "WOW you ended up winning " + this.playerMoney   + " bananas!"
+                            this.resetGame = true;
+                        }
+                        if (this.gameCount == 5 && this.playerMoney == 0){
+                            this.playerRolledValue = "Loser, you have now lost all your bananas to the com!"
+                            this.resetGame = true;
+                        }
+                    }
 
+                    this.computerAi(this.diceRollCounter)
+
+                },
+                nextRound(){
+                    if(this.gameCount < 5 && this.playerMoney > 0){
+                        this.resetTurn()
+                        this.gameCount++
+                    }      
+                },
+                
+                computerAi(turn){ // ok ill know, ai is a strong word for this :P 
+                   
+                    if (this.comhandId == 99999){
+                        this.comhandId = Math.floor(Math.random() * Math.floor(8))
+                    }
+
+                    let comHands = [
+                    {type: "five of a kind", showHand: [1,1,1,1,1], probabilityLow: 1,     probabilityHigh: 6,     round1:[6,6,6,6,7], round2: [6,6,6,6,6], comPoints: 7001 },
+                    {type: "four of a kind", showHand: [2,2,2,2,1], probabilityLow: 7,     probabilityHigh: 157,   round1:[6,6,6,6,7], round2: [6,6,7,7,7], comPoints: 6002 },
+                    {type: "Full house",     showHand: [0,0,0,3,3], probabilityLow: 158,   probabilityHigh: 458,   round1:[6,6,6,6,7], round2: [6,6,6,6,6], comPoints: 5003 },
+                    {type: "Straight",       showHand: [0,1,2,3,4], probabilityLow: 459,   probabilityHigh: 699,   round1:[6,6,6,6,7], round2: [6,6,6,7,7], comPoints: 4004 },
+                    {type: "three of a kind",showHand: [3,3,3,0,1], probabilityLow: 700,   probabilityHigh: 1900,  round1:[6,6,6,6,7], round2: [6,6,6,7,7], comPoints: 3003 },
+                    {type: "two Pair",       showHand: [1,1,3,3,0], probabilityLow: 1901,  probabilityHigh: 3701,  round1:[6,6,6,6,7], round2: [6,6,6,6,7], compoints: 2003 },
+                    {type: "one Pair",       showHand: [1,1,3,2,0], probabilityLow: 3702,  probabilityHigh: 7302,  round1:[6,6,6,6,7], round2: [6,6,7,7,7], compoints: 1001 },
+                    {type: "Bust",           showHand: [0,1,2,3,5], probabilityLow: 7303,  probabilityHigh: 7783,  round1:[6,6,6,6,7], round2: [6,7,7,7,7], compoints: 0 }]
+                    
+                    this.comHandText = comHands[this.comhandId].type
+                    this.comPoints = comHands[this.comhandId].compoints
+
+
+                    switch (turn){
+
+                        case 1: 
+                            this.comHandText = comHands[this.comhandId].type
+                            this.computerDice = comHands[this.comhandId].round1 
+                            this.computerBet =  Math.floor(Math.random() * Math.floor(4))  
+                            console.log(this.posts[0].img )
+                            this.changeComDice()
+                        break;
+                        
+                        case 2: 
+                            this.computerDice = comHands[this.comhandId].round2                 
+                            this.changeComDice()
+                            this.computerBet =  Math.floor(Math.random() * Math.floor(30)) 
+                            console.log(this.posts[0].img )
+                            break;
+
+                        case 3: 
+                            this.computerDice = comHands[this.comhandId].showHand                 
+                            this.changeComDice()
+                            console.log(this.posts[0].img )
+                            break;
                     }
                 },
+                changeComDice(){
+
+                    this.posts[0].img = this.diceSides[this.computerDice[0]].sideUrl
+                    this.posts[1].img = this.diceSides[this.computerDice[1]].sideUrl
+                    this.posts[2].img = this.diceSides[this.computerDice[2]].sideUrl
+                    this.posts[3].img = this.diceSides[this.computerDice[3]].sideUrl
+                    this.posts[4].img = this.diceSides[this.computerDice[4]].sideUrl
+
+                    this.reloadSingleElement("changeThis");
+                },
+                resetGameMethod(){
+                    this.resetTurn()
+                    this.playerMoney = 100
+                    this.diceRollCounter = 0
+                    this.gameCount = 1
+                    this.resetGame = false
+                    this.reloadSingleElement("resetPokerApp"); 
+
+                },
+                resetTurn(){
+                  
+                    this.playerDice[0] = 6
+                    this.playerDice[1] = 6
+                    this.playerDice[2] = 6
+                    this.playerDice[3] = 6
+                    this.playerDice[4] = 6
+                    this.setDiceImg()
+
+                    console.log(this.playerDice)
+
+                    this.pdb1 = true
+                    this.pdb2 = true 
+                    this.pdb3 = true
+                    this.pdb4 = true
+                    this.pdb5 = true
+
+                    this.playerPoints = 0
+                    this.comPoints = 0
+                    this.playerBet = 0
+                    this.computerBet = 0
+                    this.diceRollCounter = 0  
+                },    
+                playerBetAmount(amount){
+                    if(this.diceRollCounter < 3){
+                        if(this.playerMoney >= amount){
+                        this.playerMoney = this.playerMoney - amount
+                        this.playerBet = this.playerBet + amount
+                        }
+                    }
+                },
+                randNr(){
+                    var hej = Math.floor(Math.random() * 7); 
+                    return hej;    
+                }, 
+                reloadSingleElement(element){
+                    var container = document.getElementById(element);
+                    var content = container.innerHTML;
+                    container.innerHTML= content; 
+                },
+         
                 setDiceImg(){
                         this.aDiceImg0 = this.diceSides[this.playerDice[0]].sideUrl
                         this.aDiceImg1 = this.diceSides[this.playerDice[1]].sideUrl     
@@ -409,7 +434,7 @@
                     while (i < 6) {
                         if(allFiveDices[i].length == 2){ 
                             this.playerPoints = 1000
-                            this.playerRolledValue = "wow! You rolled pair!" + this.playerPoints
+                            this.playerRolledValue = "You rolled one pair, and the computer rolled " + this.comHandText
                         }
                         i++;                    
                     }i = 0;
@@ -421,13 +446,13 @@
                         }                                                                        
                         if(sumTwo == 2){
                             this.playerPoints = 2000
-                            this.playerRolledValue = "wow! You rolled tvåpar     " + this.playerPoints
+                            this.playerRolledValue = "You rolled two pair, and the computer rolled " + this.comHandText
                         }
                         i++;                    
                     } i = 0;        
                 
                     if(this.playerPoints == 0){
-                        this.playerRolledValue = "wow! You rolled NOTHING     " 
+                        this.playerRolledValue = "You did not roll anything, and computer rolled " + this.comHandText
                     }
 
                     
@@ -435,7 +460,7 @@
                     while (i < 6) {
                         if( allFiveDices[i].length == 5){ 
                             this.playerPoints = 7000 
-                            this.playerRolledValue = "wow! You rolled five of a kind!" + this.playerPoints
+                            this.playerRolledValue = "You rolled five of a kind! and computer rolled " + this.comHandText
                         }
                         i++;
                     }i = 0;
@@ -445,7 +470,7 @@
                         if( allFiveDices[i].length == 4){ 
                             console.log("four!")
                             this.playerPoints = 6000
-                            this.playerRolledValue = "wow! You rolled four of a kind!" + this.playerPoints
+                            this.playerRolledValue = "You rolled four of a kind! and  computer rolled " + this.comHandText
                         }
                         i++;                    
                     }i = 0;
@@ -453,7 +478,7 @@
                           while (i < 6) {
                         if(allFiveDices[i].length == 3){ 
                             this.playerPoints = 3000
-                            this.playerRolledValue = "wow! You rolled three of a kind!" + this.playerPoints
+                            this.playerRolledValue = "You rolled three of a kind! and computer rolled " + this.comHandText
                         }
                         i++;                    
                     }i = 0;
@@ -469,7 +494,7 @@
                         }                                                                           
                         if(kakBoolHi == true && kakBoolLo == true){
                             this.playerPoints = 5000
-                            this.playerRolledValue = "wow! You rolled kak     " + this.playerPoints
+                            this.playerRolledValue = "You rolled kak full house, and computer rolled " + this.comHandText
                         }
                         i++;                    
                     } i = 0;
@@ -491,16 +516,13 @@
                         }                                            
                         if(stegBoolLo != stegBoolHi && numer == 5){
                             this.playerPoints = 4000
-                            this.playerRolledValue = "wow! You rolled STEGE     " + this.playerPoints
+                            this.playerRolledValue = "You rolled straight, and computer rolled " + this.comHandText
                         }
                         i++;                    
                     }i = 0;
 
                 
-                    if(this.playerPoints == 0){
-                        this.playerRolledValue = "wow! You rolled NOTHING     " 
-                    }
-
+                   
                 }
             }
     })
